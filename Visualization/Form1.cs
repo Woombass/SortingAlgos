@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -38,12 +39,17 @@ namespace Visualization
 
         private void button2_Click(object sender, EventArgs e)
         {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             algorithm.Sort();
-
+            sw.Stop();
             foreach (var item in algorithm.Items)
             {
                 label2.Text += " " + item;
             }
+
+            label3.Text = "";
+            label3.Text +=  "Время выполнения кода: "+ Convert.ToString(sw.ElapsedMilliseconds) + " мс.";
         }
     }
 }

@@ -15,41 +15,61 @@ namespace Visualization
 {
     public partial class Form1 : Form
     {
-        BaseAlgorithm<int> algorithm = new BubbleSort<int>();
+        BaseAlgorithm<int> algorithmBubble = new BubbleSort<int>();
+        BaseAlgorithm<int> algorithmCoctail = new CoctailSort<int>();
+        public int ItemsCount { get; set; } = 10000;
 
         public Form1()
         {
             InitializeComponent();
+            label3.Text = "";
+            label4.Text = "";
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             var rnd = new Random();
+            
+            var tempCollection = new List<int>();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < ItemsCount; i++)
             {
-                algorithm.Items.Add(rnd.Next(0,100));
+                tempCollection.Add(rnd.Next(0,100));
+            }
+            algorithmBubble.Items.AddRange(tempCollection);
+            algorithmCoctail.Items.AddRange(tempCollection);
+            if (ItemsCount < 50)
+            {
+                foreach (var item in algorithmBubble.Items)
+                {
+                    label1.Text += " " + item;
+                }
             }
 
-            foreach (var item in algorithm.Items)
-            {
-                label1.Text += " " + item;
-            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            algorithm.Sort();
+            algorithmBubble.Sort();
             sw.Stop();
-            foreach (var item in algorithm.Items)
+            if (ItemsCount < 50)
             {
-                label2.Text += " " + item;
+                foreach (var item in algorithmBubble.Items)
+                {
+                    label2.Text += " " + item;
+                }
             }
 
-            label3.Text = "";
-            label3.Text +=  "Время выполнения кода: "+ Convert.ToString(sw.ElapsedMilliseconds) + " мс.";
+            label3.Text += "Время выполнения кода сортировки пузырьком: " + Convert.ToString(sw.ElapsedMilliseconds) + " мс.";
+            sw.Reset();
+            sw.Start();
+            algorithmCoctail.Sort();
+            sw.Stop();
+            label4.Text += "Время выполнения кода сортфировки шейкерной: " + Convert.ToString(sw.ElapsedMilliseconds) +
+                           " мс.";
+            sw.Reset();
         }
     }
 }

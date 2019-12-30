@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sortings\BubbleSortTests.cs" />
+    <Compile Include="Sortings\CoctailSortTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MSTest.TestAdapter">
